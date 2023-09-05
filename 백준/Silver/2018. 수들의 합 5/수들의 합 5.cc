@@ -14,29 +14,39 @@ int main(void)
 	int N = 0;
 	cin >> N;
 
-	int result = 0;
+	int start = 1;
+	int end = 1;
 
-	for (int start = 1; start <= N; start++)
+	int sum = 1; // 자연수 1부터 시작
+	int count = 0;
+	while (1)
 	{
-		int sum = start;
-		if (start == N)
+		if (start == N) // 
 		{
-			result++;
+			count++;
 			break;
 		}
-		for (int end = start + 1; end <= N; end++)
+		
+		if (sum < N) // sum이 N보다 작다면 end를 뒤로 한칸 옮기고 값 더해줌
 		{
-			sum += end;
-			if (sum >= N)
-			{
-				if (sum == N) result++;		
-
-				break;
-			}
+			end++;
+			sum = sum + end; 		
+		}
+		else if (sum > N) // sum이 N보다 크다면 현재 start의 값을 빼고 start를 뒤로 한칸 옮겨줌
+		{
+			sum = sum - start;
+			start++;
+		}
+		else // sum이 N과 같다면 일단 결과값 하나 올려주고 end를 뒤로 한칸 옮기고 값 더해줌
+ 		{
+			count++;
+			end++;
+			sum = sum + end;		
 		}
 	}
 
-	cout << result;
+
+	cout << count;
 
 	return 0;
 }
