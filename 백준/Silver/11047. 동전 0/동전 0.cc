@@ -25,41 +25,17 @@ int main(void)
 		int num;
 		cin >> num;
 		v.push_back(num);
-	} // 동전의 가격은 오름차순으로 주어짐
+	} // 동전의 가격은 오름차순이고 다음동전은 이전동전의 배수다
 
 	int result = 0;
-	for(int i = N-1; i>= 0; i--)
+	for (int i = N - 1; i >= 0; i--)
 	{
-		int count = 0; // 동전의 갯수
-		int idx = i; // 마지막 인덱스부터 빼본다
-
-		int calK = K;
-
-		while (idx >= 0)
+		// K보다 작은 값이 나오면 그 값으로 나누어 동전의 갯수를 더하고
+		if (K >= v[i])
 		{
-			// 현재 상황에서 최선의 선택을 한다
-			// 뺄 수 있는 가장 큰 금액을 뺀다
-			if (calK >= v[idx])
-			{
-				calK -= v[idx];
-				count++;
-			}
-
-			// 뺄 수 없다면 그 다음 금액으로 넘어간다
-			else
-			{
-				idx--;
-			}		
-		}
-		// 반복문을 완료했을 때 돈이 남았으면 안된다
-		if (calK == 0)
-		{
-			if (result == 0) result = count;
-			else
-			{
-				if (result > count) result = count;
-			}
-			
+			result += K / v[i];
+			// 나머지 금액을 갱신한다
+			K = K % v[i];
 		}
 	}
 
